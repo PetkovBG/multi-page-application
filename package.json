@@ -1,0 +1,23 @@
+{
+  "name": "multi-page-application",
+  "version": "1.0.0",
+  "description": "Node JS | Express | Handlebars",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PetkovBG/multi-page-application.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PetkovBG/multi-page-application/issues"
+  },
+  "homepage": "https://github.com/PetkovBG/multi-page-application#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
