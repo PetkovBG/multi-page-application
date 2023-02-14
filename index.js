@@ -1,3 +1,4 @@
+const cookieParser = require('cookie-parser');
 const express = require('express');
 
 const handlebars = require('express-handlebars');
@@ -17,6 +18,8 @@ app.set('view engine', 'hbs');
 
 app.use(express.static('public'));
 app.use(express.urlencoded({extended: false}));
+
+app.use(cookieParser());
 
 app.use(routes);
 
