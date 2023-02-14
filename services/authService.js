@@ -2,6 +2,8 @@ const User = require('../models/User');
 
 const bcrypt = require('bcrypt')
 
+exports.findByEmail = (email) => User.findOne(email);
+
 exports.register = async (username, email, password, repeatPassword) => {
 
     if(password == '') {
@@ -26,5 +28,23 @@ exports.register = async (username, email, password, repeatPassword) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     await User.create({username, email, password: hashedPassword});
+
+};
+
+exports.login = async (email, password) => {
+
+    const user = this.findByEmail(email);
+
+    if(!user) {
+        throw new Error('Username or password is not valid')
+    }
+
+    const isValid = await bcrypt.compare(password, user.password);
+
+    if(!isValid) {
+        throw new Error('Username or password is not valid')
+    }
+
+    
 
 }
