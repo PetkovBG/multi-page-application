@@ -1,8 +1,11 @@
 const User = require('../models/User');
 
 const bcrypt = require('bcrypt')
+const jwt = require('../lib/jsonwebtoken');
+const { SECRET } = require('../constants');
 
-exports.findByEmail = (email) => User.findOne(email);
+exports.findByEmail = (email) => User.findOne({email});
+exports.exists = (username) => User.exists({username});
 
 exports.register = async (username, email, password, repeatPassword) => {
 
@@ -33,8 +36,8 @@ exports.register = async (username, email, password, repeatPassword) => {
 
 exports.login = async (email, password) => {
 
-    const user = this.findByEmail(email);
-
+    const user = await this.findByEmail(email);
+    console.log(user);
     if(!user) {
         throw new Error('Username or password is not valid')
     }
@@ -45,6 +48,14 @@ exports.login = async (email, password) => {
         throw new Error('Username or password is not valid')
     }
 
-    
+    const payload = {
+        _id: user.id,
+        email,
+        username: user.username,
+    };
+
+    const token = await jwt.sign(payload, SECRET);
+
+    return token;
 
 }
