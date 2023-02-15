@@ -7,7 +7,7 @@ const cryptoSchema = new mongoose.Schema({
     },
     image: {
         type: String,
-        required: [trye, 'image is required']
+        required: [true, 'image is required']
     }, 
     price: {
         type: Number,

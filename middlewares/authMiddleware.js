@@ -30,7 +30,7 @@ next();
 //isAuthroized middleware
 exports.isAuth = (req, res, next) => {
 
-    if(!res.user) {
+    if(!req.user) {
         res.redirect('/login')
     }
     next();
