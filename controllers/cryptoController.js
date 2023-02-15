@@ -30,6 +30,18 @@ router.get('/catalog', async (req, res) => {
 
 
     res.render('crypto/catalog', {crypto});
+});
+
+router.get('/:cryptoId/details', async (req, res) => {
+
+    const crypto = await cryptoService.getOne(req.params.cryptoId);
+
+    const isOwner = crypto.owner == req.user._id;
+    const isBuyer = crypto.buyers?.some(id => id == req.user?.id);
+
+    // console.log(crypto);
+
+    res.render('crypto/details', {crypto, isOwner, isBuyer});
 })
 
 module.exports = router;
