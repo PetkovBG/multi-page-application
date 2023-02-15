@@ -20,6 +20,7 @@ app.use(express.static('public'));
 app.use(express.urlencoded({extended: false}));
 
 app.use(cookieParser());
+app.use(authentication);
 
 app.use(routes);
 
