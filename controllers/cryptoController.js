@@ -23,4 +23,13 @@ router.post('/create', isAuth, async(req, res) => {
 
 });
 
+//GET crypto catalog
+router.get('/catalog', async (req, res) => {
+
+    const crypto = await cryptoService.getAll();
+
+
+    res.render('crypto/catalog', {crypto});
+})
+
 module.exports = router;
