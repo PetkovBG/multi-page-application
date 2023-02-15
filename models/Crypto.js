@@ -17,6 +17,14 @@ const cryptoSchema = new mongoose.Schema({
         type: String,
         required: [true, 'description is required']
     },
+    paymentMethod: {
+        type: String,
+        enum: {
+            values: ['crypto-wallet', 'credit-card', 'debit-card', 'paypal'],
+            message: 'Invalid payment method'
+        },
+        required: true,
+    },
     buyers: [{
         type: mongoose.Types.ObjectId,
         ref: 'User'
