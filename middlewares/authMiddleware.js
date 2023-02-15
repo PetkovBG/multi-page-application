@@ -20,8 +20,8 @@ if (token) {
         return res.status(401).redirect('home/404');
     }
 
-    next();
-
+    
 }
+next();
 
 }

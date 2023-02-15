@@ -3,6 +3,7 @@ const express = require('express');
 
 const handlebars = require('express-handlebars');
 const mongoose = require('mongoose');
+const { authentication } = require('./middlewares/authMiddleware');
 
 const port = 3500;
 
