@@ -31,17 +31,28 @@ router.get('/catalog', async (req, res) => {
 
     res.render('crypto/catalog', {crypto});
 });
-
+//GET details page
 router.get('/:cryptoId/details', async (req, res) => {
 
     const crypto = await cryptoService.getOne(req.params.cryptoId);
+    
+    console.log(crypto);
 
     const isOwner = crypto.owner == req.user._id;
-    const isBuyer = crypto.buyers?.some(id => id == req.user?.id);
+    const isBuyer = crypto.buyers?.some(id => id == req.user?._id);
+
+
+    res.render('crypto/details', {crypto, isOwner, isBuyer});
+});
+
+//Buy crypto
+router.get('/:cryptoId/buy', async (req, res) => {
+
+    const crypto = await cryptoService.buy(req.params.cryptoId, req.user._id);
 
     // console.log(crypto);
 
-    res.render('crypto/details', {crypto, isOwner, isBuyer});
+    res.redirect(`/crypto/${req.params.cryptoId}/details`);
 })
 
 module.exports = router;
