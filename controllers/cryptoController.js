@@ -3,6 +3,7 @@ const cryptoService = require('../services/cryptoService');
 
 const { isAuth } = require('../middlewares/authMiddleware');
 const { getErrorMessage } = require('../utils/errorUtils');
+const { getPaymentMethod } = require('../utils/viewDataUtils');
 
 //GET create crypto
 router.get('/create', isAuth, (req, res) => {
@@ -51,6 +52,29 @@ router.get('/:cryptoId/buy', async (req, res) => {
     const crypto = await cryptoService.buy(req.params.cryptoId, req.user._id);
 
     // console.log(crypto);
+
+    res.redirect(`/crypto/${req.params.cryptoId}/details`);
+});
+
+//GET edit page
+router.get('/:cryptoId/edit', isAuth, async (req, res) => {
+
+    const crypto = await cryptoService.getOne(req.params.cryptoId);
+
+    const paymentMethods = getPaymentMethod(crypto.paymentMethod);
+    console.log(paymentMethods);
+
+    res.render('crypto/edit', {crypto, paymentMethods});
+});
+
+//POST edit page
+router.post('/:cryptoId/edit', isAuth, async (req, res) => {
+
+    const cryptoData = req.body;
+    const cryptoId = req.params.cryptoId;
+
+    await cryptoService.edit(cryptoData, cryptoId);
+
 
     res.redirect(`/crypto/${req.params.cryptoId}/details`);
 })

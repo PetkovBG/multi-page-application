@@ -17,4 +17,11 @@ exports.buy = async (cryptoId, userId) => {
 
    return crypto.save();
 
+};
+
+//edit crypto
+exports.edit = async (cryptoData, cryptoId) => {
+
+    await Crypto.findByIdAndUpdate(cryptoId, cryptoData, {runValidators: true});
+
 }
