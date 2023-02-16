@@ -24,4 +24,7 @@ exports.edit = async (cryptoData, cryptoId) => {
 
     await Crypto.findByIdAndUpdate(cryptoId, cryptoData, {runValidators: true});
 
-}
+};
+
+//delete crypto
+exports.delete = async (cryptoId) => Crypto.findByIdAndDelete(cryptoId);
