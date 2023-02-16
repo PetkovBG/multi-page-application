@@ -87,6 +87,17 @@ router.get('/:cryptoId/delete', async (req, res) => {
     res.redirect('/crypto/catalog');
 });
 
+router.get('/search', async (req, res) => {
+
+    const { name, paymentMethod } = req.query;
+
+    let crypto = await cryptoService.search(name, paymentMethod);
+
+    const paymentMethods = getPaymentMethod(paymentMethod);
+
+    res.render('crypto/search', {crypto, paymentMethods, name, paymentMethod});
+})
+
 
 
 module.exports = router;
